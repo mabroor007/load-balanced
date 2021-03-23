@@ -1,0 +1,31 @@
+events {}
+
+http {
+
+  server {
+
+    listen 80;
+    # root /usr/share/nginx/html;
+
+    location /site2 {
+      proxy_pass http://localhost:8080/;
+    }
+
+    location /images {
+      root /usr/share/nginx/;
+    }
+
+    location ~ .jpg$ {
+      return 403;
+    }
+
+  }
+
+  server {
+    listen 8080;
+
+    root /usr/share/nginx/html/site2/;
+  }
+
+
+}

@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  captin:
+    image: nginx:alpine
+    volumes:
+      - ./web:/usr/share/nginx/html
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./images:/usr/share/nginx/images
+    ports:
+      - "8080:80"
+    depends_on:
+      - sniper
+      - punisher
+      - gunslinger
+
+  sniper:
+    build: ./api
+    environment:
+      PORT: 4000
+      NAME: Sniper
+    expose:
+      - "4000"
+
+  punisher:
+    build: ./api
+    environment:
+      PORT: 4001
+      NAME: Punisher
+    expose:
+      - "4001"
+
+  gunslinger:
+    build: ./api
+    environment:
+      PORT: 4002
+      NAME: Gunslinger
+    expose:
+      - "4002"

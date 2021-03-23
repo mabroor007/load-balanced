@@ -1,0 +1,23 @@
+events {}
+
+http {
+
+  server {
+
+    listen 80;
+
+    location  /sniper/ {
+      proxy_pass http://sniper:4000/;
+    }
+
+    location /punisher/ {
+      proxy_pass http://punisher:4001/;
+    }
+
+    location /gunslinger/ {
+      proxy_pass http://gunslinger:4002/;
+    }
+
+  }
+
+}

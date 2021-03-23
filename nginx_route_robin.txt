@@ -1,0 +1,31 @@
+http {
+  upstream backend {
+    #ip_hash;
+    server sniper:4000;
+    server punisher:4001;
+    server gunslinger:4002;
+  }
+
+  upstream team {
+    server sniper:4000;
+    server gunslinger:4002;
+  }
+
+
+  server {
+    listen 80;
+
+    location /team/ {
+      proxy_pass http://team/;
+    }
+
+    location / {
+      proxy_pass http://backend/;
+    }
+
+  }
+
+}
+
+events {}
+
